@@ -1,0 +1,27 @@
+class Solution {
+    public boolean check(int max,int[] nums,int maxi) {
+        int count = 0;
+        for (int num : nums) {
+            int i = (int) Math.ceil(num / (double) max) - 1;
+            count += i;
+            if (count > maxi) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public int minimumSize(int[] nums, int maxOperations) {
+        int l = 1;
+        int r = 0;
+        for (int i : nums) 
+            r = Math.max(r, i);
+        while (l < r) {
+            int m = (l + r) / 2;
+            if (check(m, nums, maxOperations)) 
+                r = m; 
+            else 
+                l = m + 1; 
+        }
+        return l;
+    }
+}
